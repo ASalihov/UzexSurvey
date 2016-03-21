@@ -6,11 +6,11 @@ namespace UzexSurvey.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
-        AppDbContext context = new AppDbContext();
+        UoW uow = new UoW(new AppDbContext());
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            var list = context.Quizes.ToList();
+            var list = uow.Quizes.GetAll();
             return View(list);
         }
     }
