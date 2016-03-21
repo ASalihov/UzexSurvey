@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+using DAL;
 
 namespace UzexSurvey.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
+        AppDbContext context = new AppDbContext();
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            return View();
+            var list = context.Quizes.ToList();
+            return View(list);
         }
     }
 }

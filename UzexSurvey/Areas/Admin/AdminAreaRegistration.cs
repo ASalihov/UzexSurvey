@@ -16,7 +16,7 @@ namespace UzexSurvey.Areas.Admin
         {
             context.MapRoute(
                 name: "admin",
-                url: "Admin/{controller}/{action}/{id}",
+                url: "{controller}/{action}/{id}",
                 defaults: new { action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "UzexSurvey.Areas.Admin.Controllers" }
             );
