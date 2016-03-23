@@ -11,5 +11,9 @@ namespace DAL.Entities
         public int Id { get; set; }
         public string Body { get; set; }
         public int QuizId { get; set; }
+
+        public QuestionType QuestionType { get; set; }
+
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

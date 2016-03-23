@@ -14,5 +14,10 @@ namespace DAL.Repositories
             :base(context)  
         {}
 
+        public override void Add(Quiz quiz)
+        {
+            quiz.CreatedOn = DateTime.Now;
+            _context.Set<Quiz>().Add(quiz);
+        }
     }
 }

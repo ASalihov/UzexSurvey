@@ -11,13 +11,22 @@ namespace DAL
     public class UoW : IUoW
     {
         protected readonly AppDbContext _context;
-
-        public IQuizRepository Quizes { get; private set; }
-
+        private IQuizRepository _quizes;
+        private IQuestionRepository _questions;
+        
         public UoW(AppDbContext context)
         {
             _context = context;
-            Quizes = new QuizRepository(_context);
+        }
+
+        public IQuizRepository Quizes
+        {
+            get { return _quizes ?? (_quizes = new QuizRepository(_context)); }
+        }
+
+        public IQuestionRepository Questions
+        {
+            get { return _questions ?? (_questions = new QuestionRepository(_context)); }
         }
 
         public int Complete()

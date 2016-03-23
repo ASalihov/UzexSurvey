@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 
-
+@Html.ActionLink("Add", "Create", "Quiz", new { Area = "Admin" }, new { })
 <table>
     <tr>
         <th>
@@ -30,7 +30,8 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Add Question", "Create", "Question", new { quizId = item.Id }, new { })
             </td>
         </tr>
     }
