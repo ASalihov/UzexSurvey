@@ -1,44 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Data.Entity;
+using System.Text;
+using System.Threading.Tasks;
 using DAL.Contracts;
 
 namespace DAL.Repositories
 {
-    public abstract class GenericRepository<T> : IRepository<T> where T : class
+    public class GenericRepository<T> : IRepository<T> where T : class
     {
-        protected readonly DbContext Context;
+        protected readonly AppDbContext _context;
 
-        public GenericRepository (DbContext context)
-	    {
-            Context = context;
-	    }
+        public GenericRepository(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public virtual T GetById(int id)
         {
-            return Context.Set<T>().Find(id);
+            throw new NotImplementedException();
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return Context.Set<T>().ToList();
+            return _context.Set<T>();
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return Context.Set<T>().Where(predicate);
+            throw new NotImplementedException();
         }
 
         public virtual void Add(T entity)
         {
-            Context.Set<T>().Add(entity);
+            _context.Set<T>().Add(entity);
         }
 
         public virtual void Delete(T entity)
         {
-            Context.Set<T>().Remove(entity);
+            throw new NotImplementedException();
         }
     }
 }

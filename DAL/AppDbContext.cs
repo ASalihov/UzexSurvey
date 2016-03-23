@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using DAL.Entities;
+using DAL.Contracts;
 
 namespace DAL
 {
