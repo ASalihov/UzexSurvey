@@ -5,22 +5,32 @@
 }
 
 <h2>Index</h2>
-
-@Html.ActionLink("Add", "Create", "Quiz", new { Area = "Admin" }, new { })
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="btn">
+        <a href="@Url.Action("Create", "Quiz", new { Area = "Admin" })" class="btn btn-success btn-lg">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
+    </div>
 
     @foreach (var item in Model)
     {
-        <tr>
+
+        <div class="row">
+            <div class="btn btn-block">
+                <div class="col-md-7">
+                    <a href="@Url.Action("Index", "Question", new { quizId = item.Id, Area = "Admin" })" class="btn btn-primary btn-lg btn-block">
+                        @item.Name
+                    </a>
+                </div>
+                <a href="@Url.Action("Edit", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-sm">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </a>
+                <a href="@Url.Action("Delete", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-sm">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        /*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -33,6 +43,7 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
                 @Html.ActionLink("Add Question", "Create", "Question", new { quizId = item.Id }, new { })
             </td>
-        </tr>
+        </tr>*/
     }
-</table>
+
+</div>

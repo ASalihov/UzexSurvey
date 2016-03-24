@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 using DAL.Contracts;
+using System.Data.Entity;
 
 namespace DAL.Repositories
 {
@@ -18,7 +19,8 @@ namespace DAL.Repositories
 
         public virtual T GetById(int id)
         {
-            throw new NotImplementedException();
+            T obj = _context.Set<T>().Find(id);
+            return obj;
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -28,17 +30,25 @@ namespace DAL.Repositories
 
         public virtual IEnumerable<T> Find(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Where(predicate);
         }
 
         public virtual void Add(T entity)
         {
             _context.Set<T>().Add(entity);
         }
-
-        public virtual void Delete(T entity)
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public virtual void Delete(int id)
+        {
+            T obj = _context.Set<T>().Find(id);
+            _context.Set<T>().Remove(obj);
+        }
+
+
     }
 }

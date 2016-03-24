@@ -9,6 +9,6 @@ namespace DAL.Contracts
 {
     public interface IQuestionRepository : IRepository<Question>
     {
-
+        IEnumerable<Question> GetByQuizId(int quizId);
     }
 }

@@ -15,9 +15,11 @@ namespace UzexSurvey.Areas.Admin.Controllers
 	    {
 	    }
         // GET: Admin/Question
-        public ActionResult Index()
+        public ActionResult Index(int quizId)
         {
-            return View(_uow.Questions.GetAll());
+            var questions = _uow.Questions.GetByQuizId(quizId);
+            ViewBag.QuizName = _uow.Quizes.Find(q => q.Id == quizId).FirstOrDefault().Name;
+            return View(questions);
         }
 
         // GET: Admin/Question/Details/5
