@@ -17,8 +17,9 @@ namespace UzexSurvey.Areas.Admin.Controllers
         // GET: Admin/Question
         public ActionResult Index(int quizId)
         {
-            ViewBag.quizId = quizId;
-            return View(_uow.Questions.GetByQuiz(quizId));
+            var questions = _uow.Questions.GetByQuizId(quizId);
+            ViewBag.QuizName = _uow.Quizes.Find(q => q.Id == quizId).FirstOrDefault().Name;
+            return View(questions);
         }
 
         // GET: Admin/Question/Details/5
@@ -41,7 +42,7 @@ namespace UzexSurvey.Areas.Admin.Controllers
         {
             _uow.Questions.Add(question);
             _uow.Complete();
-            return RedirectToAction("Index", new { quizId = question.QuizId});
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Question/Edit/5

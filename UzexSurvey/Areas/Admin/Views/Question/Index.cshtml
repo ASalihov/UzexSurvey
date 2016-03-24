@@ -4,11 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Questions</h2>
+<h2>Quiz "@ViewBag.QuizName"</h2>
 
-<p>
-    @Html.ActionLink("Add Question", "Create", "Question", new { quizId = ViewBag.quizId }, new { })
-</p>
+<div class="btn">
+    <a href="@Url.Action("Create", "Quiz", new { Area = "Admin" })" c class="btn btn-success btn-sm">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+</div>
+
 <table class="table">
     <tr>
         <th>

@@ -44,47 +44,27 @@ namespace UzexSurvey.Areas.Admin.Controllers
         
 
         // GET: Admin/Quiz/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int quizId)
         {
-            return View();
+            Quiz quiz = _uow.Quizes.GetById(quizId);
+            return View(quiz);
         }
 
         // POST: Admin/Quiz/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Quiz quiz)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _uow.Quizes.Update(quiz);
+            _uow.Complete();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Quiz/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int quizId)
         {
-            return View();
-        }
-
-        // POST: Admin/Quiz/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _uow.Quizes.Delete(quizId);
+            _uow.Complete();
+            return RedirectToAction("Index");
         }
     }
 }
