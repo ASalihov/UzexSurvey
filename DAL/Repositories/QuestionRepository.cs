@@ -13,5 +13,11 @@ namespace DAL.Repositories
         public QuestionRepository(AppDbContext context)
             :base(context)
         {}
+
+
+        public IEnumerable<Question> GetByQuiz(int QuizId)
+        {
+            return _context.Questions.Where(q => q.QuizId == QuizId);
+        }
     }
 }

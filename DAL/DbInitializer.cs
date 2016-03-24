@@ -5,7 +5,7 @@ using DAL.Entities;
 
 namespace DAL
 {
-    public class DbInitializer : CreateDatabaseIfNotExists<AppDbContext>
+    public class DbInitializer : DropCreateDatabaseAlways<AppDbContext>
     {
         protected override void Seed(AppDbContext context)
         {

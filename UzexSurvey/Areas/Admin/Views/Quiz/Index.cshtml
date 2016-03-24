@@ -4,35 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Quiz List</h2>
 
-@Html.ActionLink("Add", "Create", "Quiz", new { Area = "Admin" }, new { })
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+
+<div class="col-md-12">
+    @Html.ActionLink("Add", "Create", "Quiz", new { Area = "Admin" }, new { @class = "btn btn-primary btn-large" })
+</div>
+
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Add Question", "Create", "Question", new { quizId = item.Id }, new { })
-            </td>
-        </tr>
+        <div class="alert alert-info" >@Html.ActionLink(item.Name, "Index", "Question", new { quizId = item.Id }, new { })</div>
     }
-</table>
