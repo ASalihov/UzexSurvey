@@ -15,7 +15,7 @@ namespace DAL.Repositories
         {}
 
 
-        public IEnumerable<Question> GetByQuiz(int QuizId)
+        public IEnumerable<Question> GetByQuizId(int QuizId)
         {
             return _context.Questions.Where(q => q.QuizId == QuizId);
         }

@@ -13,7 +13,6 @@ namespace DAL.Entities
         public int QuizId { get; set; }
 
         public QuestionType QuestionType { get; set; }
-        public virtual Quiz Quiz { get; set; }
 
         public virtual ICollection<Answer> Answers { get; set; }
     }

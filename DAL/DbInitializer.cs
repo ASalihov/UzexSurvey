@@ -5,7 +5,7 @@ using DAL.Entities;
 
 namespace DAL
 {
-    public class DbInitializer : DropCreateDatabaseAlways<AppDbContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<AppDbContext>
     {
         protected override void Seed(AppDbContext context)
         {

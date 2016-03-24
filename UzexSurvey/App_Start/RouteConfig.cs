@@ -18,6 +18,12 @@ namespace UzexSurvey
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "test",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Question", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -15,10 +15,11 @@ namespace UzexSurvey.Areas.Admin.Controllers
 	    {
 	    }
         // GET: Admin/Question
-        public ActionResult Index(int quizId)
+        public ActionResult Index(int id)
         {
-            var questions = _uow.Questions.GetByQuizId(quizId);
-            ViewBag.QuizName = _uow.Quizes.Find(q => q.Id == quizId).FirstOrDefault().Name;
+            var questions = _uow.Questions.GetByQuizId(id);
+            ViewBag.QuizName = _uow.Quizes.GetById(id).Name;
+            ViewBag.QuizId = id;
             return View(questions);
         }
 
@@ -33,16 +34,17 @@ namespace UzexSurvey.Areas.Admin.Controllers
         {
             var question = new Question();
             question.QuizId = quizId;
-            return View(question);
+            return PartialView("_Create", question);
         }
 
         // POST: Admin/Question/Create
         [HttpPost]
         public ActionResult Create(Question question)
         {
+            var quizid = question.QuizId;
             _uow.Questions.Add(question);
             _uow.Complete();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = quizid });
         }
 
         // GET: Admin/Question/Edit/5
@@ -70,23 +72,12 @@ namespace UzexSurvey.Areas.Admin.Controllers
         // GET: Admin/Question/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            var quizId = _uow.Questions.GetById(id).QuizId;
+            _uow.Questions.Delete(id);
+            _uow.Complete();
+            return RedirectToAction("Index", new { id = quizId });
         }
 
-        // POST: Admin/Question/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
