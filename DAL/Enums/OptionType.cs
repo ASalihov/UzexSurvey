@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public enum AnswerType
+    public enum OptionType
     {
         label = 1,
         textbox = 2,

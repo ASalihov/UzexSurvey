@@ -16,14 +16,15 @@ namespace UzexSurvey
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Quiz", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "UzexSurvey.Controllers" }
             );
-
+            /*
             routes.MapRoute(
                 name: "test",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Question", action = "Index", id = UrlParameter.Optional }
-            );
+            );*/
         }
     }
 }

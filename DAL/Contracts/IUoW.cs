@@ -10,6 +10,7 @@ namespace DAL.Contracts
     {
         IQuizRepository Quizes { get; }
         IQuestionRepository Questions { get; }
+        IOptionRepository Options { get; }
         int Complete();
     }
 }

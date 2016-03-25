@@ -13,6 +13,7 @@ namespace DAL
         protected readonly AppDbContext _context;
         private IQuizRepository _quizes;
         private IQuestionRepository _questions;
+        private IOptionRepository _Options;
         
         public UoW(AppDbContext context)
         {
@@ -27,6 +28,11 @@ namespace DAL
         public IQuestionRepository Questions
         {
             get { return _questions ?? (_questions = new QuestionRepository(_context)); }
+        }
+
+        public IOptionRepository Options
+        {
+            get { return _Options ?? (_Options = new OptionRepository(_context)); }
         }
 
         public int Complete()

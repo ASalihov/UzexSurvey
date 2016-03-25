@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DAL.Entities.Option>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionType)
+        </th>
+        <th>
+            <a href="@Url.Action("Create", new { id = ViewBag.QiestionId })" class="btn btn-success btn-sm create-Option" })">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            </a>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionType)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class="edit-Option"}) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script type="text/javascript">
+    $(function () {
+        $(".create-Option").on("click", function (e) {
+            $("#questionModalContent").load(this.href, function () {
+                $("#questionModal").modal({}, 'show');
+            })
+            return false;
+        });
+
+        $(".edit-Option").on('click', function (e) {
+            $("#questionModalContent").load(this.href, function () {
+                $("#questionModal").modal({}, 'show');
+            })
+            return false;
+        })
+
+    })
+</script>

@@ -1,23 +1,31 @@
-﻿using System;
+﻿using DAL.Contracts;
+using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UzexSurvey.Areas.Admin.Controllers;
 
 namespace UzexSurvey.Controllers
 {
-    public class HomeController : Controller
+    public class QuizController : BaseController
     {
+        public QuizController(IUoW uow)
+            : base(uow)
+        {
+
+        }
         public ActionResult Index()
         {
-            return View();
+            return View(_uow.Quizes.GetAll());
         }
 
-        public ActionResult About()
+        public ActionResult PassQuiz(int id)
         {
             ViewBag.Message = "Your application description page.";
-
-            return View();
+            Quiz quiz = _uow.Quizes.GetById(id);
+            return View(quiz);
         }
 
         public ActionResult Contact()

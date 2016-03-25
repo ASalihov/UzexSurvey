@@ -14,6 +14,6 @@ namespace DAL.Entities
 
         public QuestionType QuestionType { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
     }
 }

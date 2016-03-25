@@ -18,21 +18,15 @@
             @Html.DisplayNameFor(model => model.Body)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.QuizId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.QuestionType)
         </th>
-        <th></th>
+        <th>&nbsp;</th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QuizId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.QuestionType)

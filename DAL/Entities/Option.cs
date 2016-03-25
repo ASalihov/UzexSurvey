@@ -5,12 +5,13 @@ using System.Text;
 
 namespace DAL.Entities
 {
-    public class Answer
+    public class Option
     {
         public int Id { get; set; }
         public int QuestionId { get; set; }
         public string Name { get; set; }
-        public AnswerType AnswerType { get; set; }
+        public OptionType OptionType { get; set; }
+        public int Position { get; set; }
 
     }
 }

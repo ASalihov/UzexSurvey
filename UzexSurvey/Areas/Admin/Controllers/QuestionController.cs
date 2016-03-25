@@ -50,23 +50,17 @@ namespace UzexSurvey.Areas.Admin.Controllers
         // GET: Admin/Question/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Question question = _uow.Questions.GetById(id);
+            return View(question);
         }
 
         // POST: Admin/Question/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Question question)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _uow.Questions.Update(question);
+            _uow.Complete();
+            return RedirectToAction("Index", new {id = question.QuizId});
         }
 
         // GET: Admin/Question/Delete/5

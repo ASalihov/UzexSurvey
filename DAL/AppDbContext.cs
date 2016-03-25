@@ -19,6 +19,7 @@ namespace DAL
 
         public virtual DbSet<Quiz> Quizes { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
 
     }
 }

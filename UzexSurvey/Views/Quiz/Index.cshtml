@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DAL.Entities.Quiz>
+
+@{
+    ViewBag.Title = "Quizes";
+}
+
+<h1>Quizes</h1>
+
+@foreach (var item in Model)
+{
+    <div class="jumbotron">
+            <h2>@Html.DisplayFor(model => item.Name)</h2>
+            <p class="navbar-left">@Html.DisplayFor(model => item.Description)</p>
+            <p class="navbar-right"><a href="@Url.Action("PassQuiz", new { id = item.Id})" class="btn btn-primary btn-lg">Start quiz &raquo;</a></p>
+            <p class="clearfix"></p>
+    </div>
+}
+
