@@ -1,4 +1,5 @@
-﻿@model DAL.Entities.Quiz
+﻿@using DAL.Entities
+@model DAL.ViewModels.QuizViewModel
 
 @{
     ViewBag.Title = "PassQuiz";
@@ -6,41 +7,63 @@
 
 <h2>@Model.Name</h2>
 
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Name)
+    @Html.DisplayFor(model => model.Description)
+    @Html.HiddenFor(model => model.Description)
+    
 <div class="list-group">
-    @foreach (var item in Model.Questions)
+    @for (int i = 0; i < Model.Questions.Count; i++)
     {
-        <div class="list-group-item">
-            <h4>@item.Body</h4>
+        <div class="list-group-question">
+            <h4>@Html.DisplayFor(model => model.Questions[i].Text)</h4>
+                @Html.HiddenFor(model => model.Questions[i].Id)
 
-            @if (item.QuestionType == DAL.Entities.QuestionType.radio)
+            @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
             {
                 <ul class="simple-list" >
-                    @foreach (var option in item.Options)
+                    @foreach (var option in Model.Questions[i].Options)
                     {
                         <li>
-                            @Html.RadioButton(option.Id.ToString(), option.Name)
-                            @Html.Label(option.Name)
+                            @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
+                            @Html.LabelFor(model => option.Name)
                         </li>
                     }
                 </ul>
+                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
+                <p class="clearfix"></p>*@
             }
-            else if (item.QuestionType == DAL.Entities.QuestionType.ckeckbox)
+            else if (Model.Questions[i].Type == DAL.Entities.QuestionType.ckeckbox)
             {
                 <ul class="simple-list">
-                    @foreach (var option in item.Options)
+                    @foreach (var option in Model.Questions[i].Options)
                     {
                         <li>
-                            @Html.CheckBox(option.Id.ToString(), option.Name)
+                            @Html.CheckBoxFor(model => model.Questions[i].MultiSelectedOptions[1], option.Name)
                             @Html.Label(option.Name)
                         </li>
                     }
                 </ul>
+                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
+                <p class="clearfix"></p>*@
             }
             else
             {
                 <textarea></textarea>
+                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
+                <p class="clearfix"></p>*@
             }
 
         </div>
     }
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-success navbar-left" />
+        <p class="clearfix"></p>
+    </div>
+
 </div>
+}

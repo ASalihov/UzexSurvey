@@ -64,6 +64,8 @@
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\QuizRepository.cs" />
     <Compile Include="UoW.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
+    <Compile Include="ViewModels\QuizViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
