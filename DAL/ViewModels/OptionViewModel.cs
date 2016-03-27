@@ -7,7 +7,7 @@ using DAL.Entities;
 
 namespace DAL.ViewModels
 {
-    public class OptionViewModule
+    public class OptionViewModel
     {
         public int Id { get; set; }
         public int QuestionId { get; set; }
@@ -16,7 +16,6 @@ namespace DAL.ViewModels
         public int Position { get; set; }
         public bool Selected { get; set; }
         public string TextAnswer { get; set; }
-        public int MyProperty { get; set; }
 
     }
 }

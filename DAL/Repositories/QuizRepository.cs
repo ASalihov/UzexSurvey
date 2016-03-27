@@ -34,13 +34,13 @@ namespace DAL.Repositories
                 {
                     Id = question.Id,
                     Text = question.Text,
-                    Options = new List<OptionViewModule>(),
+                    Options = new List<OptionViewModel>(),
                     Type = question.QuestionType
                 };
                 var options = _context.Set<Option>().Where(o => o.QuestionId == question.Id).ToList();
                 foreach (var option in options)
                 {
-                    var optionVM = new OptionViewModule
+                    var optionVM = new OptionViewModel
                     {
                         Id = option.Id,
                         Name = option.Name,

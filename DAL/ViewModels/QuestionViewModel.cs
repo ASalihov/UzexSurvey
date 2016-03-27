@@ -17,6 +17,6 @@ namespace DAL.ViewModels
         public int?[] MultiSelectedOptions { get; set; }
         public string TextAnswer { get; set; }
         public QuestionType Type { get; set; }
-        public List<OptionViewModule> Options { get; set; }
+        public List<OptionViewModel> Options { get; set; }
     }
 }
