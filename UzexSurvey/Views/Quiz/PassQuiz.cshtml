@@ -20,41 +20,50 @@
     {
         <div class="list-group-question">
             <h4>@Html.DisplayFor(model => model.Questions[i].Text)</h4>
-                @Html.HiddenFor(model => model.Questions[i].Id)
+            @Html.HiddenFor(model => model.Questions[i].Id)
 
             @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
             {
-                <ul class="simple-list" >
-                    @foreach (var option in Model.Questions[i].Options)
+                <ul class="simple-list">
+                    @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                     {
+                        var option = Model.Questions[i].Options[j];
+                        
                         <li>
                             @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
-                            @Html.LabelFor(model => option.Name)
+                            @if (option.OptionType == OptionType.textbox)
+                            {
+                                @Html.TextBoxFor(model => model.Questions[i].Options[j].TextAnswer)
+                            }
+                            else if (option.OptionType == OptionType.textarea)
+                            {
+                                @Html.TextAreaFor(model => model.Questions[i].Options[j].TextAnswer)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => option.Name)
+                            }
+
+                            @Html.HiddenFor(m => m.Questions[i].Options[j].TextAnswer)
                         </li>
                     }
                 </ul>
-                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
-                <p class="clearfix"></p>*@
             }
             else if (Model.Questions[i].Type == DAL.Entities.QuestionType.ckeckbox)
             {
                 <ul class="simple-list">
-                    @foreach (var option in Model.Questions[i].Options)
+                    @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                     {
                         <li>
-                            @Html.CheckBoxFor(model => model.Questions[i].MultiSelectedOptions[1], option.Name)
-                            @Html.Label(option.Name)
+                            @Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, Model.Questions[i].Options[j].Name)
+                            @Html.DisplayFor(model => model.Questions[i].Options[j].Name)
                         </li>
                     }
                 </ul>
-                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
-                <p class="clearfix"></p>*@
             }
             else
             {
-                <textarea></textarea>
-                @*<div class="btn btn-success navbar-right set-answer">Confirm</div>
-                <p class="clearfix"></p>*@
+                @Html.TextAreaFor(model => model.Questions[i].TextAnswer)
             }
 
         </div>

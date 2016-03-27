@@ -30,15 +30,27 @@ namespace DAL.Repositories
             var questions = _context.Set<Question>().Where(q => q.QuizId == id).ToList();
             foreach (var question in questions)
             {
-                var options = _context.Set<Option>().Where(o => o.QuestionId == question.Id).ToList();
-                var qVm = new QuestionViewModel
+                var questionVM = new QuestionViewModel
                 {
                     Id = question.Id,
                     Text = question.Text,
-                    Options = options,
+                    Options = new List<OptionViewModule>(),
                     Type = question.QuestionType
                 };
-                quizVM.Questions.Add(qVm);
+                var options = _context.Set<Option>().Where(o => o.QuestionId == question.Id).ToList();
+                foreach (var option in options)
+                {
+                    var optionVM = new OptionViewModule
+                    {
+                        Id = option.Id,
+                        Name = option.Name,
+                        OptionType = option.OptionType,
+                        Position = option.Position,
+                        QuestionId = option.QuestionId
+                    };
+                    questionVM.Options.Add(optionVM);
+                }
+                quizVM.Questions.Add(questionVM);
             }
             return quizVM;
         }

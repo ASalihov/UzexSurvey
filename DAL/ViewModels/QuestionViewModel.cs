@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DAL.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.ViewModels
 {
@@ -16,6 +17,6 @@ namespace DAL.ViewModels
         public int?[] MultiSelectedOptions { get; set; }
         public string TextAnswer { get; set; }
         public QuestionType Type { get; set; }
-        public IEnumerable<Option> Options { get; set; }
+        public List<OptionViewModule> Options { get; set; }
     }
 }
