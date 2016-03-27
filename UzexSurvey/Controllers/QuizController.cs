@@ -1,5 +1,5 @@
 ﻿using DAL.Contracts;
-using DAL.Entities;
+using DAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,25 @@ namespace UzexSurvey.Controllers
         }
         public ActionResult Index()
         {
-            return View(_uow.Quizes.GetAll());
+            return View(_uow.Quizes.GetNotEmpties());
         }
 
+
+        // GET: Quiz/PassQuiz
         public ActionResult PassQuiz(int id)
         {
             ViewBag.Message = "Your application description page.";
-            Quiz quiz = _uow.Quizes.GetById(id);
+            QuizViewModel quiz = _uow.Quizes.GetQuizToPass(id);
             return View(quiz);
+        }
+
+
+        // POST: Quiz/PassQuiz
+        [HttpPost]
+        public ActionResult PassQuiz(QuizViewModel quizVm)
+        {
+            _uow.Quizes.SavePassedQuiz(quizVm);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Contact()
