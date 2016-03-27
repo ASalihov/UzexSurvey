@@ -14,12 +14,12 @@
 
             @if (item.QuestionType == DAL.Entities.QuestionType.radio)
             {
-                <ul class="simple-list" >
+                <ul class="simple-list">
                     @foreach (var option in item.Options)
                     {
                         <li>
-                            @Html.RadioButton(option.Id.ToString(), option.Name)
-                            @Html.Label(option.Name)
+                            @Html.RadioButton("question" + item.Id, option.Name)
+                            @Html.Label(option.Name, new { @for = "question" + item.Id })
                         </li>
                     }
                 </ul>
@@ -30,7 +30,7 @@
                     @foreach (var option in item.Options)
                     {
                         <li>
-                            @Html.CheckBox(option.Id.ToString(), option.Name)
+                            @Html.CheckBox(item.Id.ToString(), option.Name)
                             @Html.Label(option.Name)
                         </li>
                     }
