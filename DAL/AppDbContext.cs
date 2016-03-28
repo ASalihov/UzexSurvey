@@ -21,5 +21,7 @@ namespace DAL
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Option> Options { get; set; }
 
+        public System.Data.Entity.DbSet<DAL.ViewModels.OptionViewModel> OptionViewModels { get; set; }
+
     }
 }

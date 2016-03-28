@@ -1,0 +1,22 @@
+﻿@using DAL.Entities
+@model DAL.ViewModels.QuizViewModel
+
+@{
+    int i = ViewBag.i;
+    int j = ViewBag.j;
+}
+
+@if (Model.Questions[i].Options[j].OptionType == OptionType.textbox)
+{
+    @Html.TextBoxFor(model => Model.Questions[i].Options[j].TextAnswer)
+}
+else if (Model.Questions[i].Options[j].OptionType == OptionType.textarea)
+{
+    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
+}
+else
+{
+    @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
+}
+
+@Html.HiddenFor(m => m.Questions[i].Options[j].TextAnswer)

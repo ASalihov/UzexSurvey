@@ -32,22 +32,9 @@
                         <li>
                             @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
 
-                            @{Html.RenderAction("GetPartialByOptionType", new { option = option });}
+                            @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, i = i, j = j });}
 
-                            @*@if (option.OptionType == OptionType.textbox)
-                            {
-                                @Html.TextBoxFor(model => model.Questions[i].Options[j].TextAnswer)
-                            }
-                            else if (option.OptionType == OptionType.textarea)
-                            {
-                                @Html.TextAreaFor(model => model.Questions[i].Options[j].TextAnswer)
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(model => option.Name)
-                            }
-
-                            @Html.HiddenFor(m => m.Questions[i].Options[j].TextAnswer)*@
+                            @**@
                         </li>
                     }
                 </ul>

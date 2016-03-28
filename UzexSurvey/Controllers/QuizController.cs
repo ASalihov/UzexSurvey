@@ -39,9 +39,11 @@ namespace UzexSurvey.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetPartialByOptionType(OptionViewModel optionVM)
+        public ActionResult GetPartialByOptionType(QuizViewModel vm, int i, int j)
         {
-            return PartialView("_GetPartialByOptionType", new { });
+            ViewBag.i = i;
+            ViewBag.j = j;
+            return PartialView("_GetPartialByOptionType", vm);
         }
 
         public ActionResult Contact()
