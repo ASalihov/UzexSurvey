@@ -39,6 +39,11 @@ namespace UzexSurvey.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetPartialByOptionType(OptionViewModel optionVM)
+        {
+            return PartialView("_GetPartialByOptionType", new { });
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
