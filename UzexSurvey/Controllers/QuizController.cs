@@ -32,6 +32,7 @@ namespace UzexSurvey.Controllers
         public ActionResult PassQuiz(QuizViewModel quizVm)
         {
             _uow.Answers.SavePassedQuiz(quizVm);
+            _uow.Complete();
             return RedirectToAction("Index");
         }
 

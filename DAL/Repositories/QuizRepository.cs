@@ -31,6 +31,7 @@ namespace DAL.Repositories
                 var questionVM = new QuestionViewModel
                 {
                     Id = question.Id,
+                    QuizId = question.QuizId,
                     Text = question.Text,
                     Options = new List<OptionViewModel>(),
                     Type = question.QuestionType
@@ -41,10 +42,11 @@ namespace DAL.Repositories
                     var optionVM = new OptionViewModel
                     {
                         Id = option.Id,
+                        QuizId = question.QuizId,
+                        QuestionId = option.QuestionId,
                         Name = option.Name,
                         OptionType = option.OptionType,
-                        Position = option.Position,
-                        QuestionId = option.QuestionId
+                        Position = option.Position
                     };
                     questionVM.Options.Add(optionVM);
                 }
@@ -58,7 +60,7 @@ namespace DAL.Repositories
             return _context.Set<Quiz>().Where(q => q.Questions.Count() > 0).ToList();
         }
 
-        public void Add(Quiz quiz)
+        public override void Add(Quiz quiz)
         {
             quiz.CreatedOn = DateTime.Now;
             _context.Set<Quiz>().Add(quiz);

@@ -1,16 +1,52 @@
-﻿using DAL.Entities;
+﻿using System;
+using System.Collections.Generic;
+using DAL.Entities;
 using DAL.Contracts;
 using DAL.ViewModels;
-using System;
 
 namespace DAL.Repositories
 {
     public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
     {
-
         public AnswerRepository(AppDbContext context)
-            :base(context)
-        {}
+            : base(context)
+        { }
+
+        private void SaveSingle(QuestionViewModel questionVM)
+        {
+            var answer = new Answer
+                {
+                    QuizId = questionVM.QuizId,
+                    QuestionId = questionVM.Id,
+                    SelectedOptionId = questionVM.SelectedOption,
+                    TextAnswer = questionVM.TextAnswer,
+                    OptionText = questionVM.Options != null ? questionVM.Options.Find(o => o.Id == questionVM.SelectedOption).TextAnswer : null,
+                    PassedOn = DateTime.Now
+                };
+
+            _context.Set<Answer>().Add(answer);
+            //_context.Answers.Add(answer);
+        }
+        private void SaveChecboxes(QuestionViewModel questionVM)
+        {
+            Answer answer = new Answer();
+            foreach (var option in questionVM.Options)
+            {
+                if (option.Selected)
+                {
+                    answer = new Answer
+                    {
+                        QuizId = option.QuizId,
+                        QuestionId = option.QuestionId,
+                        SelectedOptionId = option.Id,
+                        OptionText = option.TextAnswer,
+                        PassedOn = DateTime.Now
+                    };
+                    _context.Set<Answer>().Add(answer);
+                }
+            }
+            //_context.Answers.Add(answer);
+        }
 
         public void SavePassedQuiz(QuizViewModel quizVm)
         {
@@ -18,22 +54,11 @@ namespace DAL.Repositories
             {
                 switch (question.Type)
                 {
-                    case QuestionType.radio:
-                        Answer answer = new Answer
-                        {
-                            QuizId = quizVm.Id,
-                            QuestionId = question.Id,
-                            SelectedOptionId = question.SelectedOption,
-                            OptionText = question.Options.Find(o => o.Id == question.SelectedOption).TextAnswer,
-                            PassedOn = DateTime.Now
-                        };
-                        _context.Answers.Add(answer);
-                        break;
                     case QuestionType.ckeckbox:
-                        break;
-                    case QuestionType.textarea:
+                        SaveChecboxes(question);
                         break;
                     default:
+                        SaveSingle(question);
                         break;
                 }
             }
