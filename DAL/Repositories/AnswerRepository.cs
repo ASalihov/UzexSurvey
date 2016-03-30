@@ -1,23 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAL.Entities;
 using DAL.Contracts;
-using DAL.Entities;
+using DAL.ViewModels;
+using System;
 
 namespace DAL.Repositories
 {
-    public class OptionRepository : GenericRepository<Option>, IOptionRepository
+    public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
     {
-        public OptionRepository(AppDbContext context)
+
+        public AnswerRepository(AppDbContext context)
             :base(context)
         {}
 
-
-        public IEnumerable<Option> GetByQuestionId(int QuestionId)
+        public void SavePassedQuiz(QuizViewModel quizVm)
         {
-            return _context.Options.Where(q => q.QuestionId == QuestionId).OrderBy(q => q.Position);
+            foreach (var question in quizVm.Questions)
+            {
+                switch (question.Type)
+                {
+                    case QuestionType.radio:
+                        Answer answer = new Answer
+                        {
+                            QuizId = quizVm.Id,
+                            QuestionId = question.Id,
+                            SelectedOptionId = question.SelectedOption,
+                            OptionText = question.Options.Find(o => o.Id == question.SelectedOption).TextAnswer,
+                            PassedOn = DateTime.Now
+                        };
+                        _context.Answers.Add(answer);
+                        break;
+                    case QuestionType.ckeckbox:
+                        break;
+                    case QuestionType.textarea:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

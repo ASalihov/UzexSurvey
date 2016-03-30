@@ -1,9 +1,5 @@
 ﻿using DAL.Contracts;
 using DAL.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using UzexSurvey.Areas.Admin.Controllers;
 
@@ -35,14 +31,14 @@ namespace UzexSurvey.Controllers
         [HttpPost]
         public ActionResult PassQuiz(QuizViewModel quizVm)
         {
-            _uow.Quizes.SavePassedQuiz(quizVm);
+            _uow.Answers.SavePassedQuiz(quizVm);
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetPartialByOptionType(QuizViewModel vm, int i, int j)
+        public ActionResult GetPartialByOptionType(QuizViewModel vm, int questionId, int optionId)
         {
-            ViewBag.i = i;
-            ViewBag.j = j;
+            ViewBag.questionId = questionId;
+            ViewBag.optionId = optionId;
             return PartialView("_GetPartialByOptionType", vm);
         }
 

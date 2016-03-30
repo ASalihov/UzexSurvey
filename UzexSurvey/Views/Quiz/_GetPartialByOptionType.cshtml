@@ -2,16 +2,18 @@
 @model DAL.ViewModels.QuizViewModel
 
 @{
-    int i = ViewBag.i;
-    int j = ViewBag.j;
+    int i = ViewBag.questionId;
+    int j = ViewBag.optionId;
 }
 
 @if (Model.Questions[i].Options[j].OptionType == OptionType.textbox)
 {
-    @Html.TextBoxFor(model => Model.Questions[i].Options[j].TextAnswer)
+    @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
+    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
 }
 else if (Model.Questions[i].Options[j].OptionType == OptionType.textarea)
 {
+    @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
     @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
 }
 else

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Contracts;
 using DAL.ViewModels;
@@ -64,11 +62,6 @@ namespace DAL.Repositories
         {
             quiz.CreatedOn = DateTime.Now;
             _context.Set<Quiz>().Add(quiz);
-        }
-
-        public void SavePassedQuiz(QuizViewModel quizVm)
-        {
-            var quiz = quizVm;
         }
     }
 }

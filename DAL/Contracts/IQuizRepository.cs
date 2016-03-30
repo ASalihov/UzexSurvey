@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DAL.Entities;
 using DAL.ViewModels;
 
@@ -13,6 +9,5 @@ namespace DAL.Contracts
         IEnumerable<Quiz> GetNotEmpties();
         QuizViewModel GetQuizToPass(int id);
 
-        void SavePassedQuiz(QuizViewModel quizVm);
     }
 }

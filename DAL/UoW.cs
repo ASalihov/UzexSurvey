@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Contracts;
+﻿using DAL.Contracts;
 using DAL.Repositories;
 
 namespace DAL
@@ -14,6 +9,7 @@ namespace DAL
         private IQuizRepository _quizes;
         private IQuestionRepository _questions;
         private IOptionRepository _Options;
+        private IAnswerRepository _Answers;
         
         public UoW(AppDbContext context)
         {
@@ -33,6 +29,11 @@ namespace DAL
         public IOptionRepository Options
         {
             get { return _Options ?? (_Options = new OptionRepository(_context)); }
+        }
+
+        public IAnswerRepository Answers
+        {
+            get { return _Answers ?? (_Answers = new AnswerRepository(_context)); }
         }
 
         public int Complete()

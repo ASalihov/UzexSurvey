@@ -32,9 +32,7 @@
                         <li>
                             @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
 
-                            @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, i = i, j = j });}
-
-                            @**@
+                            @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, questionId = i, optionId = j });}
                         </li>
                     }
                 </ul>

@@ -11,6 +11,7 @@ namespace DAL.Contracts
         IQuizRepository Quizes { get; }
         IQuestionRepository Questions { get; }
         IOptionRepository Options { get; }
+        IAnswerRepository Answers { get; }
         int Complete();
     }
 }

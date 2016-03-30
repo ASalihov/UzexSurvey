@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entities;
+using DAL.ViewModels;
 
 namespace DAL.Contracts
 {
-    public interface IOptionRepository : IRepository<Option>
+    public interface IAnswerRepository : IRepository<Answer>
     {
-        IEnumerable<Option> GetByQuestionId(int questionId);
+        void SavePassedQuiz(QuizViewModel quizVm);
     }
 }
