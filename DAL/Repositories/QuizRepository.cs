@@ -12,12 +12,12 @@ namespace DAL.Repositories
         public QuizRepository(AppDbContext context)
             :base(context)  
         {}
-        
+
         public QuizViewModel GetQuizToPass(int id)
         {
 
             var quiz = GetById(id);
-            var quizVM = new QuizViewModel()
+            var quizVm = new QuizViewModel()
             {
                 CreatedOn = quiz.CreatedOn,
                 Id = quiz.Id,
@@ -28,34 +28,52 @@ namespace DAL.Repositories
             var questions = _context.Set<Question>().Where(q => q.QuizId == id).ToList();
             foreach (var question in questions)
             {
-                var questionVM = new QuestionViewModel
+                var questionVm = new QuestionViewModel
                 {
                     Id = question.Id,
                     Text = question.Text,
                     Options = new List<OptionViewModel>(),
                     Type = question.QuestionType
                 };
-                var options = _context.Set<Option>().Where(o => o.QuestionId == question.Id).ToList();
+
+                var query = (
+                    from opts in question.Options
+                    join answers in _context.Set<Answer>()
+                        on opts.Id equals answers.SelectedOptionId
+                        into g
+                    where opts.QuestionId == question.Id
+                    select new
+                    {
+                        Id = opts.Id,
+                        Name = opts.Name,
+                        OptionType = opts.OptionType,
+                        Position = opts.Position,
+                        QuestionId = opts.QuestionId,
+                        AnswersCount = g.Count()
+                    }
+                );
+                var options = query.ToList();
                 foreach (var option in options)
                 {
-                    var optionVM = new OptionViewModel
+                    var optionVm = new OptionViewModel
                     {
                         Id = option.Id,
                         Name = option.Name,
                         OptionType = option.OptionType,
                         Position = option.Position,
-                        QuestionId = option.QuestionId
+                        QuestionId = option.QuestionId,
+                        AnswersCount = option.AnswersCount
                     };
-                    questionVM.Options.Add(optionVM);
+                    questionVm.Options.Add(optionVm);
                 }
-                quizVM.Questions.Add(questionVM);
+                quizVm.Questions.Add(questionVm);
             }
-            return quizVM;
+            return quizVm;
         }
 
         public IEnumerable<Quiz> GetNotEmpties()
         {
-            return _context.Set<Quiz>().Where(q => q.Questions.Count() > 0).ToList();
+            return _context.Set<Quiz>().Where(q => q.Questions.Any()).ToList();
         }
 
         public void Add(Quiz quiz)

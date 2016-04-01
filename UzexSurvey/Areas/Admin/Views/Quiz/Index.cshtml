@@ -7,32 +7,48 @@
 <h2>Index</h2>
 <div class="container">
     <div class="btn">
-        <a href="@Url.Action("Create", "Quiz", new { Area = "Admin" })" class="btn btn-success btn-lg">
+        <a href="@Url.Action("Create", "Quiz", new { Area = "Admin" })" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </a>
     </div>
 
-    @foreach (var item in Model)
-    {
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            /*
+            <div class="row">
+                <div class="btn btn-block">
+                    <div class="col-md-7">
+                        <a href="@Url.Action("Index", "Question", new { id = item.Id, Area = "Admin" })" class="btn btn-primary btn-lg btn-block">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="@Url.Action("Edit", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </a>
+                        <a href="@Url.Action("Delete", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>*/
 
-        <div class="row">
-            <div class="btn btn-block">
-                <div class="col-md-7">
-                    <a href="@Url.Action("Index", "Question", new { id = item.Id, Area = "Admin" })" class="btn btn-primary btn-lg btn-block">
+            <tr>
+                <th class="col-md-7">
+                    <a href="@Url.Action("Index", "Question", new { id = item.Id, Area = "Admin" })">
                         @item.Name
                     </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="@Url.Action("Edit", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    </a>
-                    <a href="@Url.Action("Delete", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        /*<tr>
+                </th>
+                <th>
+                    @Html.ActionLink("Edit", "Edit", new { quizId = item.Id, Area = "Admin" }) |
+                    @Html.ActionLink("Stat", "GetStat", new { quizId = item.Id, Area = "Admin" }) |
+                    @Html.ActionLink("Delete", "Delete", new { quizId = item.Id, Area = "Admin" })
+                </th>
+            </tr>
+
+
+            /*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -46,6 +62,8 @@
                 @Html.ActionLink("Add Question", "Create", "Question", new { quizId = item.Id }, new { })
             </td>
         </tr>*/
-    }
+        }
+
+    </table>
 
 </div>

@@ -23,11 +23,6 @@ namespace UzexSurvey.Areas.Admin.Controllers
             return PartialView("_Index", Options);
         }
 
-        // GET: Admin/Option/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: Admin/Option/Create
         public ActionResult Create(int id)
@@ -72,20 +67,5 @@ namespace UzexSurvey.Areas.Admin.Controllers
             return RedirectToAction("Edit", "Question", new { id = questionId });
         }
 
-        // POST: Admin/Option/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

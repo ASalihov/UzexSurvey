@@ -16,6 +16,7 @@ namespace DAL.ViewModels
         public int Position { get; set; }
         public bool Selected { get; set; }
         public string TextAnswer { get; set; }
+        public int AnswersCount { get; set; }
 
     }
 }

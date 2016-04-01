@@ -10,7 +10,7 @@ namespace UzexSurvey.Areas.Admin.Controllers
 {
     public class QuizController : BaseController
     {
-        public QuizController (IUoW uow)
+        public QuizController(IUoW uow)
             :base(uow)
 	    {
 	    }
@@ -19,12 +19,6 @@ namespace UzexSurvey.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View(_uow.Quizes.GetAll());
-        }
-
-        // GET: Admin/Quiz/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: Admin/Quiz/Create
@@ -65,6 +59,14 @@ namespace UzexSurvey.Areas.Admin.Controllers
             _uow.Quizes.Delete(quizId);
             _uow.Complete();
             return RedirectToAction("Index");
+        }
+
+        // GET: Admin/Quiz/Stat/5
+
+        public ActionResult GetStat(int quizId)
+        {
+
+            return PartialView("_GetStat", new {id = quizId});
         }
     }
 }

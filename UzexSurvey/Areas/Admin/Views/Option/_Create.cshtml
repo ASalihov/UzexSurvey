@@ -1,5 +1,9 @@
 ﻿@model DAL.Entities.Option
 
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">New Option</h4>
+</div>
+
 @using (Html.BeginForm())
 {
 
@@ -8,8 +12,6 @@
     <div class="modal-body">
 
         <div class="form-horizontal">
-            <h4>Option</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.QuestionId)
 
@@ -31,7 +33,8 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <button class="btn" type="button" data-dismiss="modal">Cancel</button>
+                    <input class="btn btn-primary" type="submit" value="Add" />
                 </div>
             </div>
         </div>
