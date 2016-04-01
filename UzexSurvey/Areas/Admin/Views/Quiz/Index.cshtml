@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Quizes</h2>
 <div class="container">
     <div class="btn">
-        <a href="@Url.Action("Create", "Quiz", new { Area = "Admin" })" class="btn btn-success btn-sm">
+        <a href="@Url.Action("Create", "Quiz", new {Area = "Admin"})" class="btn btn-success btn-sm">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </a>
     </div>
@@ -15,55 +15,41 @@
     <table class="table">
         @foreach (var item in Model)
         {
-            /*
-            <div class="row">
-                <div class="btn btn-block">
-                    <div class="col-md-7">
-                        <a href="@Url.Action("Index", "Question", new { id = item.Id, Area = "Admin" })" class="btn btn-primary btn-lg btn-block">
-                            @item.Name
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="@Url.Action("Edit", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </a>
-                        <a href="@Url.Action("Delete", "Quiz", new { quizId = item.Id, Area = "Admin" })" class="btn btn-warning btn-lg">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>*/
 
             <tr>
                 <th class="col-md-7">
-                    <a href="@Url.Action("Index", "Question", new { id = item.Id, Area = "Admin" })">
+                    <a href="@Url.Action("Index", "Question", new {id = item.Id, Area = "Admin"})">
                         @item.Name
                     </a>
                 </th>
                 <th>
-                    @Html.ActionLink("Edit", "Edit", new { quizId = item.Id, Area = "Admin" }) |
-                    @Html.ActionLink("Stat", "GetStat", new { quizId = item.Id, Area = "Admin" }) |
-                    @Html.ActionLink("Delete", "Delete", new { quizId = item.Id, Area = "Admin" })
+                    @Html.ActionLink("Edit", "Edit", new {quizId = item.Id, Area = "Admin"}) |
+                    @Html.ActionLink("Stat", "GetStat", new {quizId = item.Id, Area = "Admin"}, new {@class="get-stat"}) |
+                    @Html.ActionLink("Delete", "Delete", new {quizId = item.Id, Area = "Admin"})
                 </th>
             </tr>
-
-
-            /*<tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Add Question", "Create", "Question", new { quizId = item.Id }, new { })
-            </td>
-        </tr>*/
         }
 
     </table>
 
 </div>
+
+<div id="statisticsModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='statisticsModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".get-stat").on('click', function (e) {
+            $("#statisticsModalContent").load(this.href, function () {
+                $('#statisticsModal').modal({ keyboard: true }, 'show');
+                $.validator.unobtrusive.parse(".form-horizontal");
+            })
+            return false;
+        })
+    })
+</script>

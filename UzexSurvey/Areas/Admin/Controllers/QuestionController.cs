@@ -41,11 +41,18 @@ namespace UzexSurvey.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Question question)
         {
-            var quizid = question.QuizId;
-            _uow.Questions.Add(question);
-            _uow.Complete();
-            return RedirectToAction("Index", new { id = quizid });
-        }
+            if (ModelState.IsValid)
+            {
+                var quizid = question.QuizId;
+                _uow.Questions.Add(question);
+                _uow.Complete();
+                return RedirectToAction("Index", new {id = quizid});
+            }
+            else
+            {
+                return PartialView("_Create", question);
+            }
+    }
 
         // GET: Admin/Question/Edit/5
         public ActionResult Edit(int id)

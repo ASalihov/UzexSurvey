@@ -32,13 +32,13 @@ namespace DAL
                                 },
                                 new Option
                                 {
-                                    Name = "Да, я иногда посещаю бассейн, тренажёрный зал или стадион",
+                                    Name = "Да, я иногда посещаю тренажёрный зал",
                                     OptionType = OptionType.label,
                                     Position = 2
                                 },
                                 new Option
                                 {
-                                    Name = "Да, я регулярно тренируюсь, обычно несколько раз в неделю, не прерываясь на значительное время",
+                                    Name = "Да, я регулярно тренируюсь",
                                     OptionType = OptionType.label,
                                     Position = 3
                                 },
@@ -102,6 +102,7 @@ namespace DAL
                             {
                                 new Option
                                 {
+                                    Name = "textarea",
                                     OptionType = OptionType.textarea,
                                     Position = 1
                                 }

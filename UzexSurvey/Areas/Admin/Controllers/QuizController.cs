@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAL.Contracts;
 using DAL.Entities;
+using DAL.ViewModels;
 
 namespace UzexSurvey.Areas.Admin.Controllers
 {
@@ -65,8 +66,8 @@ namespace UzexSurvey.Areas.Admin.Controllers
 
         public ActionResult GetStat(int quizId)
         {
-
-            return PartialView("_GetStat", new {id = quizId});
+            QuizViewModel quizVm = _uow.Quizes.GetQuizViewModel(quizId);
+            return PartialView("_GetStat", quizVm);
         }
     }
 }

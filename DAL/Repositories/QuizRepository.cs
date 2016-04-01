@@ -13,7 +13,8 @@ namespace DAL.Repositories
             :base(context)  
         {}
 
-        public QuizViewModel GetQuizToPass(int id)
+
+        public QuizViewModel GetQuizViewModel(int id)
         {
 
             var quiz = GetById(id);

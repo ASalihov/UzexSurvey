@@ -9,7 +9,7 @@
 @if (Model.Questions[i].Options[j].OptionType == OptionType.textbox)
 {
     @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
-    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
+    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer, new { @class = "radio-text " + Model.Questions[i].Options[j].Id })
 }
 else if (Model.Questions[i].Options[j].OptionType == OptionType.textarea)
 {
