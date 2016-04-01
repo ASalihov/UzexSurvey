@@ -21,6 +21,8 @@
         <div class="list-group-question">
             <h4>@Html.DisplayFor(model => model.Questions[i].Text)</h4>
             @Html.HiddenFor(model => model.Questions[i].Id)
+            @Html.HiddenFor(model => model.Questions[i].Type)
+            @Html.HiddenFor(model => model.Questions[i].QuizId)
 
             @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
             {
@@ -28,7 +30,9 @@
                     @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                     {
                         var option = Model.Questions[i].Options[j];
-                        
+                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
+                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
+
                         <li>
                             @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
 
@@ -42,6 +46,9 @@
                 <ul class="simple-list">
                     @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                     {
+                        @Html.HiddenFor(model => model.Questions[i].Options[j].Id)
+                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
+                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
                         <li>
                             @Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, Model.Questions[i].Options[j].Name)
                             @Html.DisplayFor(model => model.Questions[i].Options[j].Name)
