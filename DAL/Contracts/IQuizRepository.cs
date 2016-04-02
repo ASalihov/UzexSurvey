@@ -7,7 +7,7 @@ namespace DAL.Contracts
     public interface IQuizRepository : IRepository<Quiz>
     {
         IEnumerable<Quiz> GetNotEmpties();
-        QuizViewModel GetQuizToPass(int id);
+        QuizViewModel GetQuizViewModel(int id);
 
     }
 }

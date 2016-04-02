@@ -10,64 +10,78 @@
 @using (@Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.Name)
     @Html.DisplayFor(model => model.Description)
     @Html.HiddenFor(model => model.Description)
-    
-<div class="list-group">
-    @for (int i = 0; i < Model.Questions.Count; i++)
-    {
-        <div class="list-group-question">
-            <h4>@Html.DisplayFor(model => model.Questions[i].Text)</h4>
-            @Html.HiddenFor(model => model.Questions[i].Id)
-            @Html.HiddenFor(model => model.Questions[i].Type)
-            @Html.HiddenFor(model => model.Questions[i].QuizId)
 
-            @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
-            {
-                <ul class="simple-list">
-                    @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
-                    {
-                        var option = Model.Questions[i].Options[j];
-                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
-                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
+    <div class="list-group">
+        @for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            <div class="list-group-item list-group-question">
+                <h4>@Html.DisplayFor(model => model.Questions[i].Text)</h4>
+                @Html.HiddenFor(model => model.Questions[i].Id)
+                @Html.HiddenFor(model => model.Questions[i].Type)
+                @Html.HiddenFor(model => model.Questions[i].QuizId)
 
-                        <li>
-                            @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
+                @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
+                {
+                    <ul class="simple-list">
+                        @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
+                        {
+                            var option = Model.Questions[i].Options[j];
+                            @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
+                            @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
 
-                            @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, questionId = i, optionId = j });}
+                            <li class="list-group-item">
+                                @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id, questionId = i })
+                                @Html.ValidationMessageFor(model => model.Questions[i].SelectedOption)
+                                @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, questionId = i, optionId = j });}
+                            </li>
+                        }
+                    </ul>
+                }
+                else if (Model.Questions[i].Type == DAL.Entities.QuestionType.ckeckbox)
+                {
+                    <ul class="simple-list">
+                        @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
+                        {
+                            @Html.HiddenFor(model => model.Questions[i].Options[j].Id)
+                            @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
+                            @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
+                            <li class="list-group-item">
+                                @Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, Model.Questions[i].Options[j].Name)
+                                @Html.DisplayFor(model => model.Questions[i].Options[j].Name)
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <ul class="simple-list">
+                        <li class="list-group-item">
+                            @Html.TextAreaFor(model => model.Questions[i].TextAnswer)
                         </li>
-                    }
-                </ul>
-            }
-            else if (Model.Questions[i].Type == DAL.Entities.QuestionType.ckeckbox)
-            {
-                <ul class="simple-list">
-                    @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
-                    {
-                        @Html.HiddenFor(model => model.Questions[i].Options[j].Id)
-                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
-                        @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
-                        <li>
-                            @Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, Model.Questions[i].Options[j].Name)
-                            @Html.DisplayFor(model => model.Questions[i].Options[j].Name)
-                        </li>
-                    }
-                </ul>
-            }
-            else
-            {
-                @Html.TextAreaFor(model => model.Questions[i].TextAnswer)
-            }
+                    </ul>
+                }
 
+            </div>
+        }
+
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Save" class="btn btn-success navbar-left" />
+            </div>
+            <p class="clearfix"></p>
         </div>
-    }
 
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-success navbar-left" />
-        <p class="clearfix"></p>
     </div>
-
-</div>
 }
+
+@Scripts.Render("~/Scripts/Custom.js")
+<script type="text/javascript">
+    $(function () {
+        $.validator.unobtrusive.parse(".form-horizontal");
+    })
+</script>

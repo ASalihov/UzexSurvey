@@ -39,6 +39,7 @@
         $(".create-Option").on("click", function (e) {
             $("#questionModalContent").load(this.href, function () {
                 $("#questionModal").modal({}, 'show');
+                $.validator.unobtrusive.parse(".form-horizontal");
             })
             return false;
         });
@@ -46,6 +47,7 @@
         $(".edit-Option").on('click', function (e) {
             $("#questionModalContent").load(this.href, function () {
                 $("#questionModal").modal({}, 'show');
+                $.validator.unobtrusive.parse(".form-horizontal");
             })
             return false;
         })

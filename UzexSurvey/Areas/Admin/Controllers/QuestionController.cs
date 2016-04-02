@@ -42,10 +42,15 @@ namespace UzexSurvey.Areas.Admin.Controllers
         public ActionResult Create(Question question)
         {
             var quizid = question.QuizId;
-            _uow.Questions.Add(question);
-            _uow.Complete();
+            if (ModelState.IsValid)
+            {
+                _uow.Questions.Add(question);
+                _uow.Complete();
+                return RedirectToAction("Index", new {id = quizid});
+            }
+
             return RedirectToAction("Index", new { id = quizid });
-        }
+    }
 
         // GET: Admin/Question/Edit/5
         public ActionResult Edit(int id)
@@ -58,9 +63,14 @@ namespace UzexSurvey.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Question question)
         {
-            _uow.Questions.Update(question);
-            _uow.Complete();
-            return RedirectToAction("Index", new {id = question.QuizId});
+            if (ModelState.IsValid)
+            {
+                _uow.Questions.Update(question);
+                _uow.Complete();
+                return RedirectToAction("Index", new {id = question.QuizId});
+            }
+
+            return RedirectToAction("Index", new { id = question.QuizId });
         }
 
         // GET: Admin/Question/Delete/5

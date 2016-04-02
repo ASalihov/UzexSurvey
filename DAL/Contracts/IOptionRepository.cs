@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,6 @@ namespace DAL.Contracts
 {
     public interface IOptionRepository : IRepository<Option>
     {
-        IEnumerable<Option> GetByQuestionId(int QuestionId);
+        IEnumerable<Option> GetByQuestionId(int questionId);
     }
 }

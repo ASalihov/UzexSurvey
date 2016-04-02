@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<DAL.Entities.Question>
 
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -41,7 +43,7 @@
 </table>
 
 
-<div id='questionModal' class='modal fade in'>
+<div id="questionModal" class='modal fade in'>
     <div class="modal-dialog">
         <div class="modal-content">
             <div id='questionModalContent'></div>
@@ -56,6 +58,7 @@
         $(".create-question").on('click', function (e) {
             $("#questionModalContent").load(this.href, function(){
                 $('#questionModal').modal({ keyboard: true }, 'show');
+                $.validator.unobtrusive.parse(".form-horizontal");
             })
             return false;
         })

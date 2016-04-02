@@ -1,0 +1,42 @@
+﻿
+@using DAL.Entities
+@model DAL.ViewModels.QuizViewModel
+
+<div class="modal-header">
+    <h2 class="modal-title" id="myModalLabel">@Model.Name</h2>
+    <h4 class="modal-title" id="myModalLabel">@Model.Description</h4>
+</div>
+
+
+    <div class="list-group">
+        @*@for (int i = 0; i < Model.Questions.Count; i++)*@
+        @foreach(var question in Model.Questions.Where(q => q.Type != QuestionType.textarea))
+        {
+            int max = question.Options.Max(o => o.AnswersCount);
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <h4>@question.Text</h4>
+
+                    <div class="list-group">
+                        @*@for (int j = 0; j < Model.Questions[i].Options.Count(); j++)*@
+                        @foreach (var option in question.Options)
+                        {
+
+                            int x = max == 0 ? 0 : option.AnswersCount * 100 / max;
+                            
+                            <div class="list-group-item list-group-item-text">
+                                @*<span class="badge progress-bar-warning">@option.AnswersCount</span>*@
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="@question.Options.Max(o => o.AnswersCount)" style="width: @x%;">
+                                        <span class="show">@option.Name   (@option.AnswersCount)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>

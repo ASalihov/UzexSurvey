@@ -70,7 +70,7 @@
     <Compile Include="ViewModels\OptionViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\QuizViewModel.cs" />
-    <Compile Include="ViewModels\StatViewModel.cs" />
+    <Compile Include="ViewModels\StatByQuizViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

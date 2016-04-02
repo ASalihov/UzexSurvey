@@ -6,19 +6,24 @@
     int j = ViewBag.optionId;
 }
 
-@if (Model.Questions[i].Options[j].OptionType == OptionType.textbox)
+@if (Model.Questions[i].Options[j].OptionType == OptionType.textarea)
 {
     @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
-    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
+    <div>
+        @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer, new { @class = "rt" + Model.Questions[i].Options[j].Id + " question-id-" + i, @disabled = "disabled" })
+    </div>
+
 }
-else if (Model.Questions[i].Options[j].OptionType == OptionType.textarea)
+else if (Model.Questions[i].Options[j].OptionType == OptionType.textbox)
 {
     @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
-    @Html.TextAreaFor(model => Model.Questions[i].Options[j].TextAnswer)
+    <div>
+        @Html.TextBoxFor(model => Model.Questions[i].Options[j].TextAnswer, new { @class = "rt" + Model.Questions[i].Options[j].Id + " question-id-" + i, @disabled = "disabled" })
+    </div>
 }
 else
 {
-    @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
+     @Html.DisplayFor(model => Model.Questions[i].Options[j].Name)
 }
 
 @Html.HiddenFor(m => m.Questions[i].Options[j].TextAnswer)

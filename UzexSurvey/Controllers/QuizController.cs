@@ -22,7 +22,7 @@ namespace UzexSurvey.Controllers
         public ActionResult PassQuiz(int id)
         {
             ViewBag.Message = "Your application description page.";
-            QuizViewModel quiz = _uow.Quizes.GetQuizToPass(id);
+            QuizViewModel quiz = _uow.Quizes.GetQuizViewModel(id);
             return View(quiz);
         }
 
