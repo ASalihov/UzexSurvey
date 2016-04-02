@@ -32,8 +32,13 @@ namespace UzexSurvey.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Quiz quiz)
         {
-            _uow.Quizes.Add(quiz);
-            _uow.Complete();
+            if (ModelState.IsValid)
+            {
+                _uow.Quizes.Add(quiz);
+                _uow.Complete();
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
         
@@ -49,8 +54,13 @@ namespace UzexSurvey.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Quiz quiz)
         {
-            _uow.Quizes.Update(quiz);
-            _uow.Complete();
+            if (ModelState.IsValid)
+            {
+                _uow.Quizes.Update(quiz);
+                _uow.Complete();
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace DAL.ViewModels
         public string Name { get; set; }
         public OptionType OptionType { get; set; }
         public int Position { get; set; }
+        [Required(ErrorMessage = "Option must be selected")]
         public bool Selected { get; set; }
         public string TextAnswer { get; set; }
         public int AnswersCount { get; set; }

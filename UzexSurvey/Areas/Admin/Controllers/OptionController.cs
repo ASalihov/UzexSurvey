@@ -37,8 +37,13 @@ namespace UzexSurvey.Areas.Admin.Controllers
         public ActionResult Create(Option Option)
         {
             var questionId = Option.QuestionId;
-            _uow.Options.Add(Option);
-            _uow.Complete();
+            if (ModelState.IsValid)
+            {
+                _uow.Options.Add(Option);
+                _uow.Complete();
+                return RedirectToAction("Edit", "Question", new { id = questionId });
+            }
+
             return RedirectToAction("Edit", "Question", new { id = questionId });
         }
 
@@ -53,8 +58,13 @@ namespace UzexSurvey.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Option Option)
         {
-            _uow.Options.Update(Option);
-            _uow.Complete();
+            if (ModelState.IsValid)
+            {
+                _uow.Options.Update(Option);
+                _uow.Complete();
+                return RedirectToAction("Edit", "Question", new {id = Option.QuestionId});
+            }
+
             return RedirectToAction("Edit", "Question", new { id = Option.QuestionId });
         }
 

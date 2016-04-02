@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Xml;
 using DAL.Entities;
 
 namespace DAL
@@ -111,7 +112,34 @@ namespace DAL
                     }
                 }
             };
+
+            var answers = new List<Answer>
+            {
+                new Answer
+                {
+                    QuizId = 1,
+                    QuestionId = 1,
+                    SelectedOptionId = 2,
+                    PassedOn = DateTime.Now
+                },
+                new Answer
+                {
+                    QuizId = 1,
+                    QuestionId = 2,
+                    SelectedOptionId = 7,
+                    PassedOn = DateTime.Now
+                },
+                new Answer
+                {
+                    QuizId = 1,
+                    QuestionId = 2,
+                    SelectedOptionId = 6,
+                    PassedOn = DateTime.Now
+                }
+
+            };
             quizes.ForEach(q => context.Quizes.Add(q));
+            answers.ForEach(a => context.Answers.Add(a));
             context.SaveChanges();
         }
     }

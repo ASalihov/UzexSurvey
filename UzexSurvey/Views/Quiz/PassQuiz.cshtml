@@ -10,6 +10,7 @@
 @using (@Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.Name)
     @Html.DisplayFor(model => model.Description)
@@ -34,8 +35,8 @@
                             @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
 
                             <li class="list-group-item">
-                                @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id })
-
+                                @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id, questionId = i })
+                                @Html.ValidationMessageFor(model => model.Questions[i].SelectedOption)
                                 @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, questionId = i, optionId = j });}
                             </li>
                         }
@@ -80,6 +81,7 @@
 
 @Scripts.Render("~/Scripts/Custom.js")
 <script type="text/javascript">
-    
-    
+    $(function () {
+        $.validator.unobtrusive.parse(".form-horizontal");
+    })
 </script>
