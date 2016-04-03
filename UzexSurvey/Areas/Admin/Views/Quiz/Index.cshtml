@@ -42,6 +42,9 @@
     </div>
 </div>
 
+
+@Scripts.Render("~/Scripts/Custom.js")
+
 <script type="text/javascript">
     $(function () {
         $(".get-stat").on('click', function (e) {
@@ -50,6 +53,11 @@
                 $.validator.unobtrusive.parse(".form-horizontal");
             })
             return false;
-        })
+        });
+
+        $('.tumbler').on('click', function (e) {
+            alert('q');
+            $('.progressbar').width(90);
+        });
     })
 </script>

@@ -6,7 +6,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Quiz "@ViewBag.QuizName"</h2>
+<h2>Questions "@ViewBag.QuizName"</h2>
 
 <div class="btn">
     <a href="@Url.Action("Create", "Question", new {quizId = ViewBag.QuizId, Area = "Admin" })" class="btn btn-success btn-sm create-question">

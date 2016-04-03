@@ -28,6 +28,10 @@
                 @if (Model.Questions[i].Type == DAL.Entities.QuestionType.radio)
                 {
                     <ul class="simple-list">
+                        @Html.ValidationMessageFor(model => model.Questions[i].SelectedOption, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Questions[i].TextAnswer, new { id = "TextAnswer", @Value = "" })
+                        
+
                         @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                         {
                             var option = Model.Questions[i].Options[j];
@@ -36,7 +40,6 @@
 
                             <li class="list-group-item">
                                 @Html.RadioButtonFor(model => model.Questions[i].SelectedOption, option.Id, new { id = option.Id, questionId = i })
-                                @Html.ValidationMessageFor(model => model.Questions[i].SelectedOption)
                                 @{Html.RenderAction("GetPartialByOptionType", new { vm = Model, questionId = i, optionId = j });}
                             </li>
                         }
@@ -44,14 +47,21 @@
                 }
                 else if (Model.Questions[i].Type == DAL.Entities.QuestionType.ckeckbox)
                 {
+                    @Html.HiddenFor(model => model.Questions[i].SelectedOption, new { id = "SelectedOption", @Value = 0 })
+                    @Html.HiddenFor(model => model.Questions[i].TextAnswer, new { id = "TextAnswer", @Value = "" })
+
                     <ul class="simple-list">
+
+
                         @for (int j = 0; j < Model.Questions[i].Options.Count(); j++)
                         {
+
                             @Html.HiddenFor(model => model.Questions[i].Options[j].Id)
                             @Html.HiddenFor(model => model.Questions[i].Options[j].QuestionId)
                             @Html.HiddenFor(model => model.Questions[i].Options[j].QuizId)
                             <li class="list-group-item">
                                 @Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, Model.Questions[i].Options[j].Name)
+                                @*@Html.CheckBoxFor(model => model.Questions[i].Options[j].Selected, new { Model.Questions[i].Options[j].Name, @class = "required-checkbox" })*@
                                 @Html.DisplayFor(model => model.Questions[i].Options[j].Name)
                             </li>
                         }
@@ -59,7 +69,10 @@
                 }
                 else
                 {
-                    <ul class="simple-list">
+                    @Html.HiddenFor(model => model.Questions[i].SelectedOption, new { id = "SelectedOption", @Value = 0 })
+
+                    <ul class="simple-list">         
+                        @Html.ValidationMessageFor(model => model.Questions[i].TextAnswer, "", new { @class = "text-danger" })
                         <li class="list-group-item">
                             @Html.TextAreaFor(model => model.Questions[i].TextAnswer)
                         </li>

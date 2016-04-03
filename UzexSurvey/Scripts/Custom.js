@@ -11,4 +11,12 @@ $(document).ready(function () {
             })
         }
     );
+
+
+    $.validator.addMethod('required_group', function (value, element) {
+                                                var $module = $(element).parents('form');
+                                                return $('.required_group:checked').size() > 0;
+                                            },
+                          'Select at least one Service please');
+    $.validator.addClassRules('required-checkbox', { 'required_group': true });
 })

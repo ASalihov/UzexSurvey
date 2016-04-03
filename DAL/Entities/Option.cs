@@ -18,7 +18,6 @@ namespace DAL.Entities
         public OptionType OptionType { get; set; }
 
         public int Position { get; set; }
-        public int Position2 { get; set; }
 
     }
 }
